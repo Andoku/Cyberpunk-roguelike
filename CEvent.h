@@ -192,6 +192,9 @@ void CEvent::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
     case SDLK_l:
         CMap::MapControl.Move(RIGHT);
         break;
+	case SDLK_ESCAPE:
+		OnExit();
+		break;
     default:
         break;
     }
