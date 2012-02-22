@@ -10,7 +10,6 @@ public:
 	static SDL_Surface *OnLoad(char *File);
 	static bool OnDraw(SDL_Surface *Surf_Dest, SDL_Surface *Surf_Src, int X, int Y);
 	static bool OnDraw(SDL_Surface *Surf_Dest, SDL_Surface *Surf_Src, int X, int Y, int X2, int Y2, int W, int H);
-	static bool Transparent(SDL_Surface *Surf_Dest, int R, int G, int B);
 };
 
 CSurface::CSurface() {
@@ -63,14 +62,6 @@ bool CSurface::OnDraw(SDL_Surface *Surf_Dest, SDL_Surface *Surf_Src, int X, int 
  
 	SDL_BlitSurface(Surf_Src, &SrcR, Surf_Dest, &DestR);
  
-	return true;
-}
-
-bool CSurface::Transparent(SDL_Surface* Surf_Dest, int R, int G, int B) {
-	if(Surf_Dest == NULL) {
-		return false;
-	}
-	SDL_SetColorKey(Surf_Dest, SDL_SRCCOLORKEY | SDL_RLEACCEL, SDL_MapRGB(Surf_Dest->format, R, G, B));
 	return true;
 }
 
