@@ -31,7 +31,7 @@ CInterface CInterface::InterfaceControl;
 CInterface::CInterface() {
 }
 
-bool CInterface::OnLoad(char *font_file, int ptsize = 12, char *HUD_file = "interface/1.interface") {
+bool CInterface::OnLoad(char *font_file, int ptsize = 14, char *HUD_file = "interface/1.interface") {
 	if (TTF_Init() < 0) {
 		return false;
 	}
