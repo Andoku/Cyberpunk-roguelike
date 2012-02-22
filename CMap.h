@@ -62,7 +62,7 @@ CMap::CMap() {
     leftedgepositiony = 0;
 }
  
-bool CMap::OnLoad(char *File) {
+bool CMap::OnLoad(const char *File) {
 	TileList.clear();
 	FILE *FileHandle = fopen(File, "r");
 	if(FileHandle == NULL) {
