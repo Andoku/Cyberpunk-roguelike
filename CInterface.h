@@ -20,7 +20,7 @@ class CInterface {
 public:	
 	static CInterface InterfaceControl;
 	CInterface();
-	bool OnLoad(char *, int, char *);
+	bool OnLoad(const char *, int, const char *);
 	void OnLoop();
 	void OnRender(SDL_Surface *);
 	void OnCleanup();
@@ -31,7 +31,7 @@ CInterface CInterface::InterfaceControl;
 CInterface::CInterface() {
 }
 
-bool CInterface::OnLoad(char *font_file, int ptsize = 14, char *HUD_file = "interface/1.interface") {
+bool CInterface::OnLoad(const char *font_file, int ptsize = 14, const char *HUD_file = "interface/1.interface") {
 	if (TTF_Init() < 0) {
 		return false;
 	}

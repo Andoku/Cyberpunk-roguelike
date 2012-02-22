@@ -7,7 +7,7 @@
 class CSurface {
 public:
 	CSurface();
-	static SDL_Surface *OnLoad(char *File);
+	static SDL_Surface *OnLoad(const char *File);
 	static bool OnDraw(SDL_Surface *Surf_Dest, SDL_Surface *Surf_Src, int X, int Y);
 	static bool OnDraw(SDL_Surface *Surf_Dest, SDL_Surface *Surf_Src, int X, int Y, int X2, int Y2, int W, int H);
 };
@@ -15,7 +15,7 @@ public:
 CSurface::CSurface() {
 }
  
-SDL_Surface *CSurface::OnLoad(char *File) {
+SDL_Surface *CSurface::OnLoad(const char *File) {
 	SDL_Surface *Surf_Temp = NULL;
 	SDL_Surface *Surf_Return = NULL;
  

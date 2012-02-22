@@ -37,7 +37,7 @@ class CMap {
 
 	public:
 		CMap();
-		bool OnLoad(char *File);
+		bool OnLoad(const char *File);
 		void OnRender(SDL_Surface *Surf_Display, int MapX, int MapY);
 		void OnCleanup();
         void Move(int direction);
