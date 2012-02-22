@@ -54,7 +54,7 @@ bool CApp::OnInit() {
 	if((Surf_Display = SDL_SetVideoMode(WWIDTH, WHEIGHT, 32, SDL_HWSURFACE | SDL_DOUBLEBUF)) == NULL) return false;
 	if((Surf_Background = CSurface::OnLoad("./media/hud.png")) == NULL) return false;
 	if(!CMap::MapControl.OnLoad("./maps/1.map")) return false;
-	if(!CInterface::InterfaceControl.OnLoad("./fonts/myfont.ttf")) return false;
+	if(!CInterface::InterfaceControl.OnLoad("./fonts/terminus.ttf")) return false;
 	
     SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL*3); //Не очень круто получается
 
