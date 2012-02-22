@@ -31,6 +31,9 @@ class CMap {
         std::vector< CUnit > UnitList;
         int mapsizex, mapsizey;
         int leftedgepositionx, leftedgepositiony; //РАССТРЭЛЯТЬ!
+        void DrawTiles(SDL_Surface *Surf_Display, int MapX, int MapY);
+        void DrawUnits(SDL_Surface *Surf_Display, int MapX, int MapY);
+        void DrawFog(SDL_Surface *Surf_Display, int MapX, int MapY);
 
 	public:
 		CMap();
@@ -98,11 +101,9 @@ bool CMap::OnLoad(char *File) {
 	return true;
 }
  
-void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY) {
+void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY)
+{
 	if(Surf_Tileset == NULL) return;
- 
-	int TilesetWidth  = Surf_Tileset->w / TILE_SIZE;
-	int TilesetHeight = Surf_Tileset->h / TILE_SIZE;
 
     int cdiffx, cdiffy;
     cdiffx = UnitList[0].posx - leftedgepositionx;
@@ -116,6 +117,16 @@ void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY) {
         leftedgepositiony--;
     if (cdiffy > SCREEN_HEIGHT - 10 && leftedgepositiony < mapsizey - SCREEN_WIDTH)
         leftedgepositiony++;
+
+    DrawTiles(Surf_Display, MapX, MapY);
+    DrawUnits(Surf_Display, MapX, MapY);
+    DrawFog(Surf_Display, MapX, MapY);
+}
+
+void CMap::DrawTiles(SDL_Surface *Surf_Display, int MapX, int MapY)
+{
+    int TilesetWidth  = Surf_Tileset->w / TILE_SIZE;
+    int TilesetHeight = Surf_Tileset->h / TILE_SIZE;
 
     for(int Y = 0; Y < SCREEN_HEIGHT; Y++)
     {
@@ -131,7 +142,19 @@ void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY) {
             CSurface::OnDraw(Surf_Display, Surf_Tileset, tX, tY, TilesetX, TilesetY, TILE_SIZE, TILE_SIZE);
         }
     }
-    //Туман войны в области, где гг никого не видит. Или типо того.
+}
+
+void CMap::DrawUnits(SDL_Surface *Surf_Display, int MapX, int MapY)
+{
+    //Пока отрисовываем только ГГ
+    CSurface::OnDraw(Surf_Display, Body_Tileset, MapX + (UnitList[0].posx - leftedgepositionx) * TILE_SIZE,
+                                                 MapY + (UnitList[0].posy - leftedgepositiony) * TILE_SIZE,
+                                                 0, 0, TILE_SIZE, TILE_SIZE);
+}
+
+void CMap::DrawFog(SDL_Surface *Surf_Display, int MapX, int MapY)
+{
+    //Нужен более продвинутый алгоритм с учетом радиуса обзора, затемненности, прочей хуйни
     int startx, starty, endx, endy;
     switch(UnitList[0].facing)
     {
@@ -175,11 +198,6 @@ void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY) {
             CSurface::OnDraw(Surf_Display, fogofwar, tX, tY, TilesetX, TilesetY, TILE_SIZE, TILE_SIZE);
         }
     }
-    //Тут сделать отрисовку всех юнитов в видимой части
-    CSurface::OnDraw(Surf_Display, Body_Tileset, MapX + (UnitList[0].posx - leftedgepositionx) * TILE_SIZE,
-                                                 MapY + (UnitList[0].posy - leftedgepositiony) * TILE_SIZE,
-                                                 0, 0, TILE_SIZE, TILE_SIZE);
-    //Разъебать это говно на отдельные методы, пизда получается
 }
 
 void CMap::OnCleanup() {
