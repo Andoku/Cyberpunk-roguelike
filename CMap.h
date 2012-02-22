@@ -44,7 +44,9 @@ class CMap {
 CMap CMap::MapControl;
 
 CMap::CMap() {
+	Body_Tileset = NULL;
 	Surf_Tileset = NULL;
+	fogofwar = NULL;
     UnitList.resize(1);
     CUnit yourself;
     yourself.posx = 1;
@@ -182,6 +184,8 @@ void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY) {
 
 void CMap::OnCleanup() {
 	SDL_FreeSurface(Surf_Tileset);
+	SDL_FreeSurface(Body_Tileset);
+	SDL_FreeSurface(fogofwar);
 	TileList.clear();
 }
 
