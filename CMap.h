@@ -40,13 +40,20 @@ CMap::CMap() {
     Surf_Tileset = NULL;
     fogofwar = NULL;
     UnitList.resize(1);
-    CUnit yourself;
-    yourself.posx = 1;
-    yourself.posy = 1;
-    yourself.facing = RIGHT;
+    CUnit unit;
+    unit.posx = 1;
+    unit.posy = 1;
+    unit.facing = RIGHT;
     UnitList.clear();
     //Примем, что на нулевом элементе всегда хранится игрок
-    UnitList.push_back(yourself);
+    UnitList.push_back(unit);
+    //И парочка юнитов для тестирования
+    unit.posx = 35;
+    unit.posy = 5;
+    UnitList.push_back(unit);
+    unit.posx = 5;
+    unit.posy = 35;
+    UnitList.push_back(unit);
     leftedgepositionx = 0;
     leftedgepositiony = 0;
 }
@@ -138,8 +145,8 @@ void CMap::DrawUnits(SDL_Surface *Surf_Display, int MapX, int MapY)
     for(int i = 0; i < UnitList.size(); i++) {
         if ( UnitList[i].posx >= leftedgepositionx &&
              UnitList[i].posy >= leftedgepositiony &&
-             UnitList[i].posx <= SCREEN_WIDTH + leftedgepositionx &&
-             UnitList[i].posy <= SCREEN_HEIGHT + leftedgepositiony)
+             UnitList[i].posx <= SCREEN_WIDTH + leftedgepositionx  - 1&&
+             UnitList[i].posy <= SCREEN_HEIGHT + leftedgepositiony - 1)
             CSurface::OnDraw(Surf_Display, Body_Tileset,
                              MapX + (UnitList[i].posx - leftedgepositionx) * TILE_SIZE,
                              MapY + (UnitList[i].posy - leftedgepositiony) * TILE_SIZE,
