@@ -1,5 +1,5 @@
 #ifndef _CMAP_H_
-	#define _CMAP_H_
+    #define _CMAP_H_
  
 #include <SDL/SDL.h>
 #include <vector>
@@ -8,14 +8,14 @@
 #include "CUnit.h"
 
 class CMap {
-	public:
-		static CMap MapControl;
+    public:
+        static CMap MapControl;
 
-	private:
-		SDL_Surface *Surf_Tileset;
+    private:
+        SDL_Surface *Surf_Tileset;
         SDL_Surface *Body_Tileset;
         SDL_Surface *fogofwar;
-		std::vector<CTile> TileList;
+        std::vector<CTile> TileList;
         std::vector< std::vector<CTile> > Map ;
         std::vector< CUnit > UnitList;
         int mapsizex, mapsizey;
@@ -24,11 +24,11 @@ class CMap {
         void DrawUnits(SDL_Surface *Surf_Display, int MapX, int MapY);
         void DrawFog(SDL_Surface *Surf_Display, int MapX, int MapY);
 
-	public:
-		CMap();
-		bool OnLoad(const char *File);
-		void OnRender(SDL_Surface *Surf_Display, int MapX, int MapY);
-		void OnCleanup();
+    public:
+        CMap();
+        bool OnLoad(const char *File);
+        void OnRender(SDL_Surface *Surf_Display, int MapX, int MapY);
+        void OnCleanup();
         void Move(int direction);
         bool CanMove(int direction);
 };
@@ -36,9 +36,9 @@ class CMap {
 CMap CMap::MapControl;
 
 CMap::CMap() {
-	Body_Tileset = NULL;
-	Surf_Tileset = NULL;
-	fogofwar = NULL;
+    Body_Tileset = NULL;
+    Surf_Tileset = NULL;
+    fogofwar = NULL;
     UnitList.resize(1);
     CUnit yourself;
     yourself.posx = 1;
@@ -52,20 +52,20 @@ CMap::CMap() {
 }
  
 bool CMap::OnLoad(const char *File) {
-	TileList.clear();
-	FILE *FileHandle = fopen(File, "r");
-	if(FileHandle == NULL) {
-		return false;
-	}
-	
+    TileList.clear();
+    FILE *FileHandle = fopen(File, "r");
+    if(FileHandle == NULL) {
+        return false;
+    }
+    
     fscanf(FileHandle, "%d:%d\n", &mapsizey, &mapsizex);
 
-	char TilesetFile[255];
-	fscanf(FileHandle, "%s\n", TilesetFile);
-	if(!(Surf_Tileset = CSurface::OnLoad(TilesetFile))) {
-		fclose(FileHandle);
-		return false;
-	}
+    char TilesetFile[255];
+    fscanf(FileHandle, "%s\n", TilesetFile);
+    if(!(Surf_Tileset = CSurface::OnLoad(TilesetFile))) {
+        fclose(FileHandle);
+        return false;
+    }
     fscanf(FileHandle, "%s\n", TilesetFile);
     if(!(Body_Tileset = CSurface::OnLoad(TilesetFile))) {
         fclose(FileHandle);
@@ -84,15 +84,15 @@ bool CMap::OnLoad(const char *File) {
             fscanf(FileHandle, "%d:%d ", &tempTile.TileID, &tempTile.TypeID);
             Map[Y].push_back(tempTile);
         }
-		fscanf(FileHandle, "\n");
-	}	
+        fscanf(FileHandle, "\n");
+    }   
     fclose(FileHandle);
-	return true;
+    return true;
 }
  
 void CMap::OnRender(SDL_Surface *Surf_Display, int MapX, int MapY)
 {
-	if(Surf_Tileset == NULL) return;
+    if(Surf_Tileset == NULL) return;
 
     int cdiffx, cdiffy;
     cdiffx = UnitList[0].posx - leftedgepositionx;
@@ -190,10 +190,10 @@ void CMap::DrawFog(SDL_Surface *Surf_Display, int MapX, int MapY)
 }
 
 void CMap::OnCleanup() {
-	SDL_FreeSurface(Surf_Tileset);
-	SDL_FreeSurface(Body_Tileset);
-	SDL_FreeSurface(fogofwar);
-	TileList.clear();
+    SDL_FreeSurface(Surf_Tileset);
+    SDL_FreeSurface(Body_Tileset);
+    SDL_FreeSurface(fogofwar);
+    TileList.clear();
 }
 
 void CMap::Move(int direction)
