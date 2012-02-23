@@ -2,8 +2,8 @@
     #define _CEVENT_H_
  
 #include <SDL/SDL.h>
-#include "CMap.h"
 #include "CApp.h"
+#include "CUnit.h"
 #include <iostream>
  
 class CEvent {
@@ -181,28 +181,28 @@ void CEvent::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
     switch (sym)
     {
     case SDLK_UP:
-        CMap::MapControl.Move(UP);
+        CUnit::UnitList[0].Move(UP);
         break;
     case SDLK_DOWN:
-        CMap::MapControl.Move(DOWN);
+        CUnit::UnitList[0].Move(DOWN);
         break;
     case SDLK_LEFT:
-        CMap::MapControl.Move(LEFT);
+        CUnit::UnitList[0].Move(LEFT);
         break;
     case SDLK_RIGHT:
-        CMap::MapControl.Move(RIGHT);
+        CUnit::UnitList[0].Move(RIGHT);
         break;
     case SDLK_k:
-        CMap::MapControl.Move(UP);
+        CUnit::UnitList[0].Move(UP);
         break;
     case SDLK_j:
-        CMap::MapControl.Move(DOWN);
+        CUnit::UnitList[0].Move(DOWN);
         break;
     case SDLK_h:
-        CMap::MapControl.Move(LEFT);
+        CUnit::UnitList[0].Move(LEFT);
         break;
     case SDLK_l:
-        CMap::MapControl.Move(RIGHT);
+        CUnit::UnitList[0].Move(RIGHT);
         break;
     case SDLK_ESCAPE:
         OnExit();
@@ -210,9 +210,8 @@ void CEvent::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
     default:
         break;
     }
-
 }
- 
+
 void CEvent::OnKeyUp(SDLKey sym, SDLMod mod, Uint16 unicode) {
     
 }

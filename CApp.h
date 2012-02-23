@@ -5,6 +5,7 @@
 #include "CSurface.h"
 #include "CEvent.h"
 #include "CInterface.h"
+#include "CUnit.h"
 #include "CMap.h"
 #include "Define.h"
 #include <iostream>
@@ -14,7 +15,6 @@ private:
     bool Running;
     SDL_Surface *Surf_Display;
     SDL_Surface *Surf_Background;
-    
 public:
     CApp();
     int OnExecute();
@@ -32,6 +32,18 @@ CApp::CApp() {
     Surf_Display = NULL;
     Surf_Background = NULL;
     Running = true;
+
+    CUnit unit;
+    unit.posx = 1;
+    unit.posy = 1;
+    unit.facing = RIGHT;
+    CUnit::UnitList.push_back(unit);
+    unit.posx = 35;
+    unit.posy = 5;
+    CUnit::UnitList.push_back(unit);
+    unit.posx = 5;
+    unit.posy = 35;
+    CUnit::UnitList.push_back(unit);
 }
 
 int CApp::OnExecute() {
@@ -55,9 +67,9 @@ bool CApp::OnInit() {
     if((Surf_Background = CSurface::OnLoad("./media/hud.png")) == NULL) return false;
     if(!CMap::MapControl.OnLoad("./maps/1.map")) return false;
     if(!CInterface::InterfaceControl.OnLoad("./fonts/terminus.ttf")) return false;
-    
-    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL*3); //Не очень круто получается
-
+    for(int i = 0; i < CUnit::UnitList.size(); i++)
+        if(!CUnit::UnitList[i].OnLoad("tilesets/2.png")) return false;
+    SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL*3);
     return true;
 }
 
@@ -75,14 +87,20 @@ void CApp::OnLoop() {
 
 void CApp::OnRender() {
     CSurface::OnDraw(Surf_Display, Surf_Background, 0, 0);
-    CMap::MapControl.OnRender(Surf_Display, MAP_X, MAP_Y);
+    CMap::MapControl.OnRender(Surf_Display, CUnit::UnitList[0].posx, CUnit::UnitList[0].posy);
+    for(int i = 0; i < CUnit::UnitList.size(); i++)
+        CUnit::UnitList[i].OnRender(Surf_Display);
+    CUnit::UnitList[0].DrawFog(Surf_Display);
     CInterface::InterfaceControl.OnRender(Surf_Display);
     SDL_Flip(Surf_Display);
 }
 
 void CApp::OnCleanup() {
+    for(int i = 0; i < CUnit::UnitList.size(); i++)
+        CUnit::UnitList[i].OnCleanup();
     CMap::MapControl.OnCleanup();
     CInterface::InterfaceControl.OnCleanup();
+    CUnit::UnitList.clear();
     SDL_FreeSurface(Surf_Display);
     SDL_FreeSurface(Surf_Background);
     SDL_Quit();
