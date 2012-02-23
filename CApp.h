@@ -47,9 +47,7 @@ CApp::CApp() {
 }
 
 int CApp::OnExecute() {
-    if(OnInit() == false) {
-        return -1;
-    }
+    if(OnInit() == false) return -1;
     SDL_Event Event;
     while(Running) {
         SDL_WaitEvent(&Event);
