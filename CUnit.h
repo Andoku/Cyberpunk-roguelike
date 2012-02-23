@@ -145,7 +145,7 @@ bool CUnit::CanMove(int direction)
             x++;
             y++;
             break;
-        }
+    }
     for(int i = 1; i < UnitList.size(); i++)
     {
         if (UnitList[i].posx == x && UnitList[i].posy == y)
