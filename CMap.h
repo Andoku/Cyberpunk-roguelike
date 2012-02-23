@@ -30,7 +30,11 @@ class CMap {
         void OnRender(SDL_Surface *Surf_Display, int MapX, int MapY);
         void OnCleanup();
         void Move(int direction);
+        void AttackRanged(int direction);
+        void AttackMelee(int direction);
         bool CanMove(int direction);
+        bool CanAttackRanged(int direction);
+        bool CanAttackMelee(int direction);
 };
 
 CMap CMap::MapControl;
@@ -211,7 +215,6 @@ void CMap::OnCleanup() {
 
 void CMap::Move(int direction)
 {
-    //Вставить проверку на возможность перемещения
     if (!CanMove(direction))
         return;
     switch(direction)
@@ -248,6 +251,16 @@ void CMap::Move(int direction)
     UnitList[0].facing = direction;
 }
 
+void AttackRanged(int direction)
+{
+
+}
+
+void AttackMelee(int direction)
+{
+
+}
+
 bool CMap::CanMove(int direction)
 {
     int x = UnitList[0].posx;
@@ -279,6 +292,16 @@ bool CMap::CanMove(int direction)
             return (x < mapsizex - 1) && (y < mapsizey - 1) && (Map[y+1][x+1].TypeID == TILE_TYPE_NORMAL);
             break;
         }
+}
+
+bool CanAttackRanged(int direction)
+{
+    return true;
+}
+
+bool CanAttackMelee(int direction)
+{
+    return true;
 }
 
 #endif
