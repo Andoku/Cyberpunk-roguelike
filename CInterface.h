@@ -50,7 +50,11 @@ bool CInterface::OnLoad(const char *font_file, int ptsize = 14, const char *HUD_
 		fscanf(FileHandle, "%d\n", &n2);
 		for(int j = 0; j < n2; j++) {
 			HUD[i].resize(n2);
-			fscanf(FileHandle, "%s %d %d %d:%d:%d\n", HUD[i][j].text, &HUD[i][j].X, &HUD[i][j].Y, &HUD[i][j].clr.r, &HUD[i][j].clr.g, &HUD[i][j].clr.b);
+            int r, g, b;
+            fscanf(FileHandle, "%s %d %d %d:%d:%d\n", HUD[i][j].text, &HUD[i][j].X, &HUD[i][j].Y, &r, &g, &b);
+            HUD[i][j].clr.r = static_cast<Uint8>(r);
+            HUD[i][j].clr.g = static_cast<Uint8>(g);
+            HUD[i][j].clr.b = static_cast<Uint8>(b);
 			if(HUD[i][j].text[0] != '0') {
 				HUD[i][j].surf = TTF_RenderText_Solid(Font, HUD[i][j].text, HUD[i][j].clr);
 			} else {
@@ -58,6 +62,7 @@ bool CInterface::OnLoad(const char *font_file, int ptsize = 14, const char *HUD_
 			}
 		}
 	}
+    fclose(FileHandle);
 	return true;
 }
 
