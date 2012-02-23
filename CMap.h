@@ -251,12 +251,13 @@ void CMap::Move(int direction)
     UnitList[0].facing = direction;
 }
 
-void AttackRanged(int direction)
+void CMap::AttackRanged(int direction)
 {
-
+    if (!CanAttackRanged(direction))
+        return;
 }
 
-void AttackMelee(int direction)
+void CMap::AttackMelee(int direction)
 {
 
 }
@@ -265,41 +266,51 @@ bool CMap::CanMove(int direction)
 {
     int x = UnitList[0].posx;
     int y = UnitList[0].posy;
-        switch(direction)
+    switch(direction)
         {
         case UP:
-            return (y > 0) && (Map[y-1][x].TypeID == TILE_TYPE_NORMAL);
+            y--;
             break;
         case DOWN:
-            return (y < mapsizey - 1) && (Map[y+1][x].TypeID == TILE_TYPE_NORMAL);
+            y++;
             break;
         case LEFT:
-            return (x > 0) && (Map[y][x-1].TypeID == TILE_TYPE_NORMAL);
+            x--;
             break;
         case RIGHT:
-            return (x < mapsizex - 1) && (Map[y][x+1].TypeID == TILE_TYPE_NORMAL);
+            x++;
             break;
         case LEFTUP:
-            return (y > 0) && (x > 0) && (Map[y-1][x-1].TypeID == TILE_TYPE_NORMAL);
+            y--;
+            x--;
             break;
         case LEFTDOWN:
-            return (x > 0) && (y < mapsizey - 1) && (Map[y+1][x-1].TypeID == TILE_TYPE_NORMAL);
+            x--;
+            y++;
             break;
         case RIGHTUP:
-            return (x < mapsizex - 1) && (y > 0) && (Map[y-1][x+1].TypeID == TILE_TYPE_NORMAL);
+            x++;
+            y--;
             break;
         case RIGHTDOWN:
-            return (x < mapsizex - 1) && (y < mapsizey - 1) && (Map[y+1][x+1].TypeID == TILE_TYPE_NORMAL);
+            x++;
+            y++;
             break;
         }
+    for(int i = 1; i < UnitList.size(); i++)
+    {
+        if (UnitList[i].posx == x && UnitList[i].posy == y)
+            return false;
+    }
+    return ((x < mapsizex) && (y < mapsizey) && (x > -1) && (y > -1) && (Map[y][x].TypeID == TILE_TYPE_NORMAL));
 }
 
-bool CanAttackRanged(int direction)
+bool CMap::CanAttackRanged(int direction)
 {
     return true;
 }
 
-bool CanAttackMelee(int direction)
+bool CMap::CanAttackMelee(int direction)
 {
     return true;
 }
