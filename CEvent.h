@@ -180,6 +180,18 @@ void CEvent::OnInputBlur() {
 void CEvent::OnKeyDown(SDLKey sym, SDLMod mod, Uint16 unicode) {
     switch (sym)
     {
+    case SDLK_UP:
+        CMap::MapControl.Move(UP);
+        break;
+    case SDLK_DOWN:
+        CMap::MapControl.Move(DOWN);
+        break;
+    case SDLK_LEFT:
+        CMap::MapControl.Move(LEFT);
+        break;
+    case SDLK_RIGHT:
+        CMap::MapControl.Move(RIGHT);
+        break;
     case SDLK_k:
         CMap::MapControl.Move(UP);
         break;
