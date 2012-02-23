@@ -7,17 +7,6 @@
 #include "CSurface.h"
 #include "CUnit.h"
 
-enum {
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT,
-    LEFTUP,
-    LEFTDOWN,
-    RIGHTUP,
-    RIGHTDOWN
-};
-
 class CMap {
 	public:
 		static CMap MapControl;
