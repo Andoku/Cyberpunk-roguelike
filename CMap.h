@@ -135,10 +135,12 @@ void CMap::DrawTiles(SDL_Surface *Surf_Display, int MapX, int MapY)
 
 void CMap::DrawUnits(SDL_Surface *Surf_Display, int MapX, int MapY)
 {
-    //Пока отрисовываем только ГГ
-    CSurface::OnDraw(Surf_Display, Body_Tileset, MapX + (UnitList[0].posx - leftedgepositionx) * TILE_SIZE,
-                                                 MapY + (UnitList[0].posy - leftedgepositiony) * TILE_SIZE,
-                                                 0, 0, TILE_SIZE, TILE_SIZE);
+    for(int i = 0; i < UnitList.size(); i++) {
+        CSurface::OnDraw(Surf_Display, Body_Tileset,
+                         MapX + (UnitList[i].posx - leftedgepositionx) * TILE_SIZE,
+                         MapY + (UnitList[i].posy - leftedgepositiony) * TILE_SIZE,
+                         0, 0, TILE_SIZE, TILE_SIZE);
+    }
 }
 
 void CMap::DrawFog(SDL_Surface *Surf_Display, int MapX, int MapY)
