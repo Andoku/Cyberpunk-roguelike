@@ -99,7 +99,6 @@ void CApp::OnRender() {
     CMap::MapControl.OnRender(Surf_Display, CUnit::UnitList[0].posx, CUnit::UnitList[0].posy);
     for(int i = 0; i < CUnit::UnitList.size(); i++)
         CUnit::UnitList[i].OnRender(Surf_Display);
-    fprintf(stderr,"%d\n", CUnit::UnitList[0].posx);
     CUnit::UnitList[0].DrawFog(Surf_Display);
     CInterface::InterfaceControl.OnRender(Surf_Display);
     SDL_Flip(Surf_Display);

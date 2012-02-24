@@ -6,6 +6,7 @@
 #include "CMap.h"
 #include "CUnit.h"
 
+std::vector<CUnit> CUnit::UnitList;
 
 CUnit::CUnit() {
     fogofwar = NULL;
@@ -163,5 +164,3 @@ void CUnit::DrawFog(SDL_Surface *Surf_Display)
         }
     }
 }
-
-std::vector<CUnit> CUnit::UnitList;
