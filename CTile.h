@@ -1,8 +1,6 @@
 #ifndef _CTILE_H_
     #define _CTILE_H_
  
-#include "Define.h"
- 
 enum {
     TILE_TYPE_NONE = 0,
     TILE_TYPE_NORMAL = 1,
@@ -15,10 +13,5 @@ class CTile {
         int TypeID;
         CTile();
 };
-
-CTile::CTile() {
-    TileID = 0;
-    TypeID = TILE_TYPE_NONE;
-}
 
 #endif
