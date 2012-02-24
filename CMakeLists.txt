@@ -1,13 +1,37 @@
-Project ( rog )
-cmake_minimum_required(VERSION 2.8)
+# ########## Project setup ##########
+PROJECT(Cyberpunk-roguelike)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4.5)
 
-set ( SOURCES CApp.cpp CApp.h CEvent.h CInterface.h CMap.h CSurface.h CTile.h CUnit.h Define.h )
-
-set(CMAKE_C_FLAGS "-std=c99")
+# ######### General setup ##########
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 
 Find_Package ( SDL REQUIRED )
 Find_Package ( SDL_image REQUIRED )
 Find_Package ( SDL_ttf REQUIRED )
+
+# ########## Cyberpunk-roguelike executable ##########
+# Sources:
+SET(Cyberpunk-roguelike_executable_SRCS
+    CMap.cpp
+    CApp.cpp
+    CTile.cpp
+    CInterface.cpp
+    CUnit.cpp
+    CEvent.cpp
+    CSurface.cpp
+)
+
+# Headers:
+SET(Cyberpunk-roguelike_executable_HDRS
+    CMap.h
+    Define.h
+    CInterface.h
+    CTile.h
+    CUnit.h
+    CSurface.h
+    CApp.h
+    CEvent.h
+)
 
 link_libraries (
    ${SDL_LIBRARY}
@@ -16,7 +40,8 @@ link_libraries (
    SDL_ttf
 )
 
-add_executable (
-   rog
-   ${SOURCES}
-)
+# actual target:
+ADD_EXECUTABLE(Cyberpunk-roguelike ${Cyberpunk-roguelike_executable_SRCS})
+
+# add install target:
+INSTALL(TARGETS Cyberpunk-roguelike DESTINATION bin)
