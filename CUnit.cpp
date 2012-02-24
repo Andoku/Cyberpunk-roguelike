@@ -1,5 +1,5 @@
 #include "SDL/SDL.h"
-#include "define.h"
+#include "Define.h"
 #include <vector>
 #include "CSurface.h"
 #include "CTile.h"
