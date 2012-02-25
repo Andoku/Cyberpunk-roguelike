@@ -26,6 +26,8 @@ bool CInterface::OnLoad(const char *font_file) {
             HUD[i].resize(n2);
             int r, g, b;
             fscanf(FileHandle, "%s %d %d %d:%d:%d\n", HUD[i][j].text, &HUD[i][j].X, &HUD[i][j].Y, &r, &g, &b);
+            for(int k = 0; HUD[i][j].text[k] != '\0'; k++) // так себе
+                if (HUD[i][j].text[k] == '_') HUD[i][j].text[k] = ' '; 
             HUD[i][j].clr.r = static_cast<Uint8>(r);
             HUD[i][j].clr.g = static_cast<Uint8>(g);
             HUD[i][j].clr.b = static_cast<Uint8>(b);
@@ -41,7 +43,7 @@ bool CInterface::OnLoad(const char *font_file) {
 }
 
 void CInterface::OnLoop() {
-
+    
 }
 
 void CInterface::OnRender(SDL_Surface *Surf_Display) {
@@ -50,6 +52,7 @@ void CInterface::OnRender(SDL_Surface *Surf_Display) {
             CSurface::OnDraw(Surf_Display, HUD[i][j].surf, HUD[i][j].X, HUD[i][j].Y);
         }
     }
+    
 }
 
 void CInterface::OnCleanup() {
